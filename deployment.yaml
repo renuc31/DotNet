@@ -19,19 +19,18 @@ kind: Deployment
 metadata:
   name: hello-samplekuber
   labels:
-    app: hello-samplekub
+    app: hello-samplekuber
 spec:
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hello-samplekub
-        tier: hello-samplekub
+        app: hello-samplekuber
+        tier: hello-samplekuber
     spec:
       containers:
       - image: 127.0.0.1:30400/hello-samplekuber:latest
         name: hello-samplekuber
         ports:
         - containerPort: 80
-          name: hello-samplekuber
