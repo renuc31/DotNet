@@ -22,7 +22,7 @@ node {
     }
     stage ('Deploy')
     {
-	sh "kubectl  run hello-samplekuber --image=127.0.0.1:30400/hello-samplekuber:latest#'$BUILDIMG'# port 80"
+	sh "kubectl  run hello-samplekuber --image=#'$BUILDIMG'# port 80"
         sh "kubectl rollout status deployment/hello-samplekuber"
 	sh "kubectl expose hello-samplekuber --type='NodePort'"
      }
