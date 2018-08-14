@@ -1,4 +1,4 @@
-pipeline {
+node {
 
     checkout scm
 
@@ -11,19 +11,18 @@ pipeline {
     registryHost = "127.0.0.1:30400/"
     imageName = "${registryHost}${appName}:${tag}"
     env.BUILDIMG=imageName
-stages {
-    stage ('Build'){
+
+    stage "Build"
     
-        sh "docker build -t ${imageName} -f SampleforKuber/SampleforKuber/dockerfile SampleforKuber/SampleforKuber"
-    }
-    stage ('Push'){
+        sh "docker build -t ${imageName} -f SampleforKuber/SampleforKuber/publish/dockerfile SampleforKuber/SampleforKuber/publish"
+    
+    stage "Push"
 
         sh "docker push ${imageName}"
-    }
-    stage ('Deploy'){
+    
+    stage "Deploy"
 
-        sh "sed 's#127.0.0.1:30400/hello-samplekuber:latest#'$BUILDIMG'#' SampleforKuber/SampleforKuber/deployment.yaml | kubectl apply -f -"
+        sh "sed 's#127.0.0.1:30400/hello-samplekuber:latest#'$BUILDIMG'#' deployment.yaml | kubectl apply -f -"
         sh "kubectl rollout status deployment/hello-samplekuber"
-	}
-	}
+	
 }
