@@ -21,9 +21,6 @@ metadata:
   labels:
     app: hello-samplekuber
 spec:
-  strategy:
-    type: Recreate
-    rollingUpdate: null
   template:
     metadata:
       labels:
