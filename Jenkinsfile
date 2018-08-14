@@ -12,8 +12,6 @@ node {
     imageName = "${registryHost}${appName}:${tag}"
     env.BUILDIMG=imageName
 
-stages
-{
     stage ('Build')
     {
         sh "docker build -t ${imageName} -f SampleforKuber/SampleforKuber/publish/dockerfile SampleforKuber/SampleforKuber/publish"
@@ -28,5 +26,5 @@ stages
         sh "kubectl rollout status deployment/hello-samplekuber"
 	sh "kubectl expose hello-samplekuber --type='NodePort'"
      }
-}
+
 }
