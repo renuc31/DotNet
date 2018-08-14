@@ -12,17 +12,21 @@ node {
     imageName = "${registryHost}${appName}:${tag}"
     env.BUILDIMG=imageName
 
-    stage "Build"
-    
-        sh "docker build -t ${imageName} -f SampleforKuber/SampleforKuber/dockerfile SampleforKuber/SampleforKuber"
-    
-    stage "Push"
-
+stages
+{
+    stage ('Build')
+    {
+        sh "docker build -t ${imageName} -f SampleforKuber/SampleforKuber/publish/dockerfile SampleforKuber/SampleforKuber/publish"
+    }
+    stage ('Push')
+    {
         sh "docker push ${imageName}"
-    
-    stage "Deploy"
-
-        sh "sed 's#127.0.0.1:30400/hello-samplekuber:latest#'$BUILDIMG'#' deployment.yaml | kubectl apply -f -"
+    }
+    stage ('Deploy')
+    {
+	sh "kubectl  run hello-samplekuber --image=127.0.0.1:30400/hello-samplekuber:latest port 80"
         sh "kubectl rollout status deployment/hello-samplekuber"
-	
+	sh "kubectl expose hello-samplekuber --type='NodePort'"
+     }
+}
 }
