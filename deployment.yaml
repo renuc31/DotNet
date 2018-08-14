@@ -19,15 +19,15 @@ kind: Deployment
 metadata:
   name: hello-samplekuber
   labels:
-    app: hello-samplekuber
+    app: hello-samplekub
 spec:
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hello-samplekuber
-        tier: hello-samplekuber
+        app: hello-samplekub
+        tier: hello-samplekub
     spec:
       containers:
       - image: 127.0.0.1:30400/hello-samplekuber:latest
