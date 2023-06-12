@@ -1,4 +1,4 @@
-apiVersion: v2
+apiVersion: v7
 kind: Service
 metadata:
   name: hello-samplekuber
